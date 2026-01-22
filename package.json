@@ -13,9 +13,13 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix --cache",
-    "format": "prettier --write --experimental-cli src/"
+    "format": "prettier --write --experimental-cli src/",
+    "supabase:init": "supabase init",
+    "supabase:login": "supabase login",
+    "supabase:link": "supabase link --project-ref iepkdvgveigvhomjsubk"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.43.4",
     "pinia": "^3.0.4",
     "vue": "^3.5.25",
     "vue-router": "^4.6.3"
@@ -32,6 +36,7 @@
     "jiti": "^2.6.1",
     "npm-run-all2": "^8.0.4",
     "prettier": "3.6.2",
+    "supabase": "^2.72.8",
     "typescript": "~5.9.0",
     "unplugin-vue-router": "^0.19.2",
     "vite": "^7.2.4",
