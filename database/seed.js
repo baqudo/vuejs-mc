@@ -1,27 +1,51 @@
 /* eslint-env node */
-import { faker } from '@faker-js/faker'
+import { fakerEN_US as faker } from '@faker-js/faker'
 import { createClient } from '@supabase/supabase-js'
 
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL
 const SUPABASE_API_KEY = process.env.SUPABASE_API_KEY
-// Create a single supabase client for interacting with your database
+
 const supabase = createClient(SUPABASE_URL, SUPABASE_API_KEY)
 
-const seedProjects = async (entriesCount = 10) => {
-  const arr = []
+const logErrorAndExit = (tableName, error) => {
+  console.error(
+    `An error occurred in table '${tableName}' with code ${error.code}: ${error.message}`,
+  )
+  process.exit(1)
+}
 
-  for (let i = 0; i < entriesCount; i++) {
+const logStep = (stepMessage) => {
+  console.log(stepMessage)
+}
+
+const seedProjects = async (numEntries) => {
+  logStep('Seeding projects...')
+  const projects = []
+
+  for (let i = 0; i < numEntries; i++) {
     const name = faker.lorem.words(3)
 
-    arr.push({
-      name,
+    projects.push({
+      name: name,
       slug: faker.helpers.slugify(name).toLowerCase(),
       status: faker.helpers.arrayElement(['in-progress', 'completed']),
-      collaborators: faker.helpers.arrayElements([1, 2, 3, 4, 5]),
+      collaborators: faker.helpers.arrayElements([1, 2, 3]),
     })
   }
 
-  await supabase.from('projects').insert(arr)
+  const { data, error } = await supabase.from('projects').insert(projects).select('id')
+
+  if (error) return logErrorAndExit('Projects', error)
+
+  logStep('Projects seeded successfully.')
+
+  return data
 }
 
-await seedProjects(10)
+const seedDatabase = async (numEntriesPerTable) => {
+  await seedProjects(numEntriesPerTable)
+}
+
+const numEntriesPerTable = 10
+
+seedDatabase(numEntriesPerTable)
