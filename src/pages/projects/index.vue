@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { h, ref } from 'vue'
 import { supabase } from '@/lib/supabaseClient'
 import type { Tables } from '@/types/database'
 import type { ColumnDef } from '@tanstack/vue-table';
