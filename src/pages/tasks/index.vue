@@ -4,6 +4,7 @@ import { h, ref } from 'vue'
 import type { Tables } from '@/types/database'
 import type { ColumnDef } from '@tanstack/vue-table';
 import DataTable from '@/components/ui/data-table/DataTable.vue'
+import { RouterLink } from 'vue-router';
 
 const tasks = ref<Tables<'tasks'>[] | null>(null)
   ; (async () => {
@@ -19,7 +20,7 @@ const columns: ColumnDef<Tables<'tasks'>>[] = [
     accessorKey: 'name',
     header: () => h('div', { class: 'text-left' }, 'Name'),
     cell: ({ row }) => {
-      return h('div', { class: 'text-left font-medium' }, row.getValue('name'))
+      return h(RouterLink, { class: 'text-left font-medium hover:underline', to: `/tasks/${row.original.id}` }, row.getValue('name'))
     }
   },
   {
