@@ -4,6 +4,8 @@ import type { Tables } from '@/types/database'
 import type { ColumnDef } from '@tanstack/vue-table';
 import { RouterLink } from 'vue-router';
 
+usePageStore().pageData.title = 'My Tasks';
+
 const tasks = ref<Tables<'tasks'>[] | null>(null)
 const getTasks = async () => {
   const { data, error } = await supabase.from('tasks').select()
@@ -59,13 +61,5 @@ const columns: ColumnDef<Tables<'tasks'>>[] = [
 </script>
 
 <template>
-  <div>
-    <div class="flex mb-4 items-center justify-between">
-
-      <h1>Tasks Page</h1>
-      <RouterLink to="/">Go to home</RouterLink>
-    </div>
-
-    <DataTable v-if="tasks" :columns="columns" :data="tasks" />
-  </div>
+  <DataTable v-if="tasks" :columns="columns" :data="tasks" />
 </template>

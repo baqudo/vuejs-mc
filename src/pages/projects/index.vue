@@ -4,6 +4,8 @@ import type { Tables } from '@/types/database'
 import type { ColumnDef } from '@tanstack/vue-table';
 import { RouterLink } from 'vue-router';
 
+usePageStore().pageData.title = 'Projects';
+
 const projects = ref<Tables<'projects'>[] | null>(null);
 
 const getProjects = async () => {
@@ -48,8 +50,6 @@ const columns: ColumnDef<Tables<'projects'>>[] = [
 
 <template>
   <div>
-    <h1 class="mb-4">Welcome to the Projects View!</h1>
-
     <DataTable v-if="projects" :columns="columns" :data="projects" />
     <div v-else>
       <p>Loading projects...</p>
