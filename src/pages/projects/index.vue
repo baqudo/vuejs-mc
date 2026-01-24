@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 import { supabase } from '@/lib/supabaseClient'
 import type { Tables } from '@/types/database'
+import type { ColumnDef } from '@tanstack/vue-table';
+import DataTable from '@/components/ui/data-table/DataTable.vue'
 
 const projects = ref<Tables<'projects'>[] | null>(null);
 
@@ -13,21 +15,41 @@ const projects = ref<Tables<'projects'>[] | null>(null);
   projects.value = data || []
   console.log('Projects data:', data)
 })()
+
+const columns: ColumnDef<Tables<'projects'>>[] = [
+  {
+    accessorKey: 'name',
+    header: () => h('div', { class: 'text-left' }, 'Name'),
+    cell: ({ row }) => {
+      return h('div', { class: 'text-left font-medium' }, row.getValue('name'))
+    }
+  },
+  {
+    accessorKey: 'status',
+    header: () => h('div', { class: 'text-left' }, 'Status'),
+    cell: ({ row }) => {
+      return h('div', { class: 'text-left font-medium' }, row.getValue('status'))
+    }
+  },
+  {
+    accessorKey: 'collaborators',
+    header: () => h('div', { class: 'text-left' }, 'Collaborators'),
+    cell: ({ row }) => {
+      return h(
+        'div',
+        { class: 'text-left font-medium' },
+        JSON.stringify(row.getValue('collaborators'))
+      )
+    }
+  }
+]
 </script>
 
 <template>
   <div>
-    <h1>Welcome to the Projects View!</h1>
+    <h1 class="mb-4">Welcome to the Projects View!</h1>
 
-    <div v-if="projects">
-      <h2>Projects List:</h2>
-      <ul>
-        <li v-for="project in projects" :key="project.id">
-          <router-link :to="{ name: '/projects/[id]', params: { id: project.id } }">{{ project.name }}</router-link>
-          <p>Status: {{ project.status }}</p>
-        </li>
-      </ul>
-    </div>
+    <DataTable v-if="projects" :columns="columns" :data="projects" />
     <div v-else>
       <p>Loading projects...</p>
     </div>
