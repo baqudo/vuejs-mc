@@ -1,8 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useErrorStore().setActiveError({ error: 'Page not found', customCode: 404 })
+</script>
 
 <template>
-  <div>
-    <h1>Not Found</h1>
-    <router-link to="/">Back to Home</router-link>
-  </div>
+  <div></div>
 </template>
