@@ -109,7 +109,7 @@ await getProject();
 </template>
 
 <style>
-/* @reference "@/assets/main.css";
+@reference "@/style.css";
 
 th {
   @apply w-[100px];
@@ -121,5 +121,5 @@ h2 {
 
 .table-container {
   @apply overflow-hidden overflow-y-auto rounded-md bg-slate-900 h-80;
-} */
+}
 </style>
