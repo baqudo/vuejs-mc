@@ -6,6 +6,13 @@ const route = useRoute('/projects/[slug]');
 
 const projectData = ref<ProjectData | null>(null);
 
+watch(
+  () => projectData.value?.name,
+  () => {
+    usePageStore().pageData.title = `Project - ${projectData.value?.name || ''}`;
+  }
+)
+
 const getProject = async () => {
   const { data, error } = await ProjectQuery(route.params.slug as string);
   if (error) {
