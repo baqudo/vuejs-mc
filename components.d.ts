@@ -12,6 +12,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppError: typeof import('./src/components/AppError/AppError.vue')['default']
+    AppErrorDev: typeof import('./src/components/AppError/AppErrorDev.vue')['default']
+    AppErrorProd: typeof import('./src/components/AppError/AppErrorProd.vue')['default']
     AuthLayout: typeof import('./src/components/layout/main/AuthLayout.vue')['default']
     Avatar: typeof import('./src/components/ui/avatar/Avatar.vue')['default']
     AvatarFallback: typeof import('./src/components/ui/avatar/AvatarFallback.vue')['default']
