@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const router = useRouter();
+
 const links = [
   {
     title: 'Dashboard',
@@ -42,7 +44,8 @@ const onActionClick = async (action: string) => {
     console.log('Signing out...');
 
     const { authLogout } = await import('@/utils/supabaseAuth');
-    await authLogout();
+    const isLoggedOut = await authLogout();
+    if (isLoggedOut) router.push('/login');
   }
 };
 </script>
