@@ -4,6 +4,9 @@ const errorStore = useErrorStore()
 onErrorCaptured((error) => {
   errorStore.setActiveError({ error })
 })
+
+onMounted(async () => {
+})
 </script>
 
 <template>
