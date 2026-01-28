@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { supabase } from '@/lib/supabaseClient';
+import { authLogin } from '@/utils/supabaseAuth';
 
 const router = useRouter();
 
@@ -9,18 +9,8 @@ const formData = ref({
 })
 
 const onLogin = async () => {
-  // Handle login logic here
-  // You can integrate with your authentication service
-  console.log('Logging in with', formData.value)
-
-  const { error } = await supabase.auth.signInWithPassword({
-    email: formData.value.email,
-    password: formData.value.password,
-  })
-
-  if (error) return console.error('Error logging in:', error.message)
-
-  router.push('/');
+  const isLoggedIn = await authLogin(formData.value);
+  if (isLoggedIn) router.push('/');
 }
 </script>
 

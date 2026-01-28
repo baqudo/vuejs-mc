@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { supabase } from '@/lib/supabaseClient'
+import { authRegister } from '@/utils/supabaseAuth';
 
 const router = useRouter();
 
@@ -13,30 +13,8 @@ const formData = ref({
 })
 
 const onSignUp = async () => {
-  // Handle sign up logic here
-  const { data, error } = await supabase.auth.signUp({
-    email: formData.value.email,
-    password: formData.value.password,
-  })
-
-  if (error) {
-    console.error('Error signing up:', error.message)
-  }
-
-  if (data.user) {
-    const { error } = await supabase.from('profiles').insert(
-      {
-        id: data.user?.id,
-        username: formData.value.username,
-        full_name: formData.value.firstName + ' ' + formData.value.lastName,
-      })
-
-    if (error) {
-      console.error('Error creating profile:', error.message)
-    }
-
-    router.push('/');
-  }
+  const isRegistred = await authRegister(formData.value);
+  if (isRegistred) router.push('/');
 }
 </script>
 
