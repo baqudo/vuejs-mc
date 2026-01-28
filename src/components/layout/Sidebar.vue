@@ -30,10 +30,21 @@ const accountLinks = [
   },
   {
     title: 'Sign Out',
-    to: '/signout',
-    icon: 'lucide:log-out'
+    icon: 'lucide:log-out',
+    action: 'signout'
   }
 ]
+
+const onActionClick = async (action: string) => {
+  console.log(`Action clicked: ${action}`);
+  if (action === 'signout') {
+    // Handle sign out logic here
+    console.log('Signing out...');
+
+    const { authLogout } = await import('@/utils/supabaseAuth');
+    await authLogout();
+  }
+};
 </script>
 
 <template>
@@ -54,7 +65,7 @@ const accountLinks = [
       </div>
 
       <div class="border-y text-center bg-background py-3">
-        <SidebarLinks :links="accountLinks" />
+        <SidebarLinks :links="accountLinks" @actionClick="onActionClick" />
       </div>
     </nav>
   </aside>
