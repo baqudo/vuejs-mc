@@ -2,14 +2,12 @@ import { supabase } from '@/lib/supabaseClient'
 import type { LoginForm, RegisterForm } from '@/types/authForm'
 
 export const authLogin = async (formData: LoginForm) => {
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { error } = await supabase.auth.signInWithPassword({
     email: formData.email,
     password: formData.password,
   })
 
-  if (error) return console.error('Error logging in:', error.message)
-
-  return true
+  return { error }
 }
 
 export const authRegister = async (formData: RegisterForm) => {
