@@ -1,8 +1,8 @@
 import { supabase } from '@/lib/supabaseClient'
 import type { QueryData } from '@supabase/supabase-js'
 
-export const ProjectsTableQuery = supabase.from('projects').select()
-export type ProjectsTableData = QueryData<typeof ProjectsTableQuery>
+export const projectsTableQuery = supabase.from('projects').select()
+export type ProjectsTableData = QueryData<typeof projectsTableQuery>
 
 export const ProjectQuery = (slug: string) => {
   return supabase
