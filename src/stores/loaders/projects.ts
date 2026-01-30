@@ -8,14 +8,13 @@ export const useProjectsStore = defineStore('projects-store', () => {
   const loadProjects = useMemoize(async (key: string) => await projectsTableQuery)
 
   const validateCache = () => {
-    // clear cache if data has updates
     if (projects.value?.length) {
-      projectsTableQuery.then(({ data }) => {
+      projectsTableQuery.then(({ data, error }) => {
         if (JSON.stringify(projects.value) === JSON.stringify(data)) {
-          console.log('Projects: cached and fresh data matched')
+          return
         } else {
-          console.log('Projects: data has some changes')
           loadProjects.delete(cacheKey)
+          if (data && !error) projects.value = data
         }
       })
     }
