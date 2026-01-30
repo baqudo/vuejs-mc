@@ -52,7 +52,7 @@ const onLogin = async () => {
           </div>
           <div v-if="serverError" class="text-sm text-red-600"> {{ serverError }} </div>
 
-          <Button type="submit" class="w-full" :disabled="serverError"> Login </Button>
+          <Button type="submit" class="w-full"> Login </Button>
         </form>
         <div class="mt-4 text-sm text-center">
           Don't have an account?
