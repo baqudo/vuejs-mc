@@ -17,7 +17,7 @@ export const authRegister = async (formData: RegisterForm) => {
   })
 
   if (error) {
-    return console.error('Error signing up:', error.message)
+    return { error }
   }
 
   if (data.user) {
@@ -28,11 +28,11 @@ export const authRegister = async (formData: RegisterForm) => {
     })
 
     if (error) {
-      return console.error('Error creating profile:', error.message)
+      return { error }
     }
   }
 
-  return true
+  return { data, error }
 }
 
 export const authLogout = async () => {

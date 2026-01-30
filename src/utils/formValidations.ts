@@ -21,3 +21,55 @@ export const validatePassword = (password: string) => {
 
   return errors
 }
+
+export const validateUsername = (username: string) => {
+  const trimmedUsername = username.trim()
+  if (!trimmedUsername) return []
+
+  const errors = []
+
+  if (trimmedUsername.length < 3 || trimmedUsername.length > 20) {
+    errors.push('Username must be between 3 and 20 characters')
+  }
+
+  const usernameRegex = /^[a-zA-Z0-9_]+$/
+  const isValidUsernameFormat = usernameRegex.test(trimmedUsername)
+
+  if (!isValidUsernameFormat) {
+    errors.push('Username can only contain letters, numbers, and underscores')
+  }
+
+  return errors
+}
+
+export const validateName = (name: string, fieldName: string) => {
+  const trimmedName = name.trim()
+  if (!trimmedName) return []
+
+  const errors = []
+
+  if (trimmedName.length < 2 || trimmedName.length > 30) {
+    errors.push(`${fieldName} must be between 2 and 30 characters`)
+  }
+
+  const nameRegex = /^[a-zA-Z'-\s]+$/
+  const isValidNameFormat = nameRegex.test(trimmedName)
+
+  if (!isValidNameFormat) {
+    errors.push(`${fieldName} can only contain letters, spaces, apostrophes, and hyphens`)
+  }
+
+  return errors
+}
+
+export const validateConfirmPassword = (password: string, confirmPassword: string) => {
+  if (!confirmPassword) return []
+
+  const errors = []
+
+  if (password !== confirmPassword) {
+    errors.push('Passwords do not match')
+  }
+
+  return errors
+}

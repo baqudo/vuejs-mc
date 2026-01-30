@@ -39,9 +39,7 @@ const onLogin = async () => {
             <Label id="email" class="text-left">Email</Label>
             <Input v-model="formData.email" type="email" placeholder="johndoe19@example.com" required
               :class="{ 'border-red-500': serverError }" />
-            <ul v-if="realtimeErrors?.email?.length" class="text-sm text-left text-red-600">
-              <li class="list-disc" v-for="(error) in realtimeErrors.email" :key="error">{{ error }}</li>
-            </ul>
+            <InputError v-if="realtimeErrors?.email?.length" :errors="realtimeErrors.email" />
           </div>
           <div class="grid gap-2">
             <div class="flex items-center">
@@ -50,10 +48,7 @@ const onLogin = async () => {
             </div>
             <Input v-model="formData.password" id="password" type="password" autocomplete required
               :class="{ 'border-red-500': serverError }" />
-
-            <ul v-if="realtimeErrors?.password?.length" class="text-sm text-left text-red-600">
-              <li class="list-disc" v-for="(error) in realtimeErrors.password" :key="error">{{ error }}</li>
-            </ul>
+            <InputError v-if="realtimeErrors?.password?.length" :errors="realtimeErrors.password" />
           </div>
           <div v-if="serverError" class="text-sm text-red-600"> {{ serverError }} </div>
 
